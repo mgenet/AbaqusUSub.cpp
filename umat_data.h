@@ -1,11 +1,12 @@
 ////////////////////////////////////////////////////////////////////////
 ///                                                                  ///
-/// Created by Martin Genet, 2008-2015                               ///
+/// Created by Martin Genet, 2008-2016                               ///
 ///                                                                  ///
 /// Laboratoire de Mécanique et de Technologie (LMT), Cachan, France ///
 /// Lawrence Berkeley National Laboratory, California, USA           ///
 /// University of California at San Francisco, USA                   ///
 /// Swiss Federal Institute of Technology (ETH), Zurich, Switzerland ///
+/// École Polytechnique, Palaiseau, France                           ///
 ///                                                                  ///
 ////////////////////////////////////////////////////////////////////////
 
@@ -161,8 +162,8 @@ struct UMatData
     {
 //         std::cout << "name: "                 << &cmname << std::endl;
         std::cout << "element number: "       << noel    << std::endl;
-        std::cout << "gauss point number: "   << npt     << std::endl;
-//         std::cout << "gauss point position: " << coords  << std::endl;
+        std::cout << "integration point number: "   << npt     << std::endl;
+//         std::cout << "integration point position: " << coords  << std::endl;
 
 //         std::cout << "number of material constants: "       << nprops       << std::endl;
 //         std::cout << "size of list of material constants: " << props.size() << std::endl;
