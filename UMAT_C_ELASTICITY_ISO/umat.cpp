@@ -14,7 +14,7 @@
 #define elasticity_iso_umat_cpp
 
 #include "options.cpp"
-#include "local_data.h"
+#include "local_data.cpp"
 
 /**
  *

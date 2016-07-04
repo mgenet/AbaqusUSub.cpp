@@ -14,7 +14,7 @@
 #define elasticity_1D_umat_cpp
 
 #include "options.cpp"
-#include "local_data.h"
+#include "local_data.cpp"
 
 namespace umat_c_elasticity_1d {
 
