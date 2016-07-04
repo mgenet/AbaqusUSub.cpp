@@ -26,78 +26,43 @@ usub_cpp_file.write('''\
 #include <string.h>
 
 ''')
-
-if (glob.glob("UEXTERNALDB/uexternaldb.cpp")):
+uexternaldbs = glob.glob("UEXTERNALDB_*")
+assert (len(uexternaldbs) in (0,1)), "There should be zero or one UEXTERNALDB folder. Aborting."
+if (len(uexternaldbs) == 1):
     usub_cpp_file.write('''\
-#include "UEXTERNALDB/uexternaldb.cpp"
+#include "'''+uexternaldbs[0]+'''/uexternaldb.cpp"
+
+extern "C" void uexternaldb_(int* lop, int* lrestart, double* time, double* dtime, int* kstep, int* kinc)
+{
+    uexternaldb::uexternaldb(lop, lrestart, time, dtime, kstep, kinc);
+} // void uexternaldb_
 
 ''')
-
-usub_cpp_file.write('''\
-#include "umat_data.h"
-
-''')
-
 umats = glob.glob("UMAT_C_*")
-for umat in umats:
+if (len(umats) > 0):
     usub_cpp_file.write('''\
+#include "umat_data.cpp"
+
+''')
+    for umat in umats:
+        usub_cpp_file.write('''\
 #include "''' + umat + '''/umat.cpp"
 ''')
-
-usub_cpp_file.write('''\
+    usub_cpp_file.write('''\
 
 /**
  *
  * This is the general UMat function.
  * Depending on the name of the material model chosen in ABAQUS, the specific UMat function is executed.
- * Before that, a UMatData structure is created, that contains all data given by ABAQUS, but reinterpreted in C++ types (names are conserved).
+ * Before that, a UMatData structure is created, that contains all data given by ABAQUS, but reinterpreted in LMT++ types (names are conserved).
  *
  */
 
-extern "C" void umat_(
-    double *stress,
-    double *statev,
-    double *ddsdde,
-    double *sse,
-    double *spd,
-    double *scd,
-    double *rpl,
-    double *ddsddt,
-    double *drplde,
-    double *drpldt,
-    double *stran,
-    double *dstran,
-    double *time,
-    double *dtime,
-    double *temp,
-    double *dtemp,
-    double *predef,
-    double *dpred,
-    char   *cmname,
-    int    *ndi,
-    int    *nshr,
-    int    *ntens,
-    int    *nstatv,
-    double *props,
-    int    *nprops,
-    double *coords,
-    double *drot,
-    double *pnewdt,
-    double *celent,
-    double *dfgrd0,
-    double *dfgrd1,
-    int    *noel,
-    int    *npt,
-    int    *layer,
-    int    *kspt,
-    int    *kstep,
-    int    *kinc,
-    short   cmname_len)
+extern "C" void umat_(double* stress, double* statev, double* ddsdde, double* sse, double* spd, double* scd, double* rpl, double* ddsddt, double* drplde, double* drpldt, double* stran, double* dstran, double* time, double* dtime, double* temp, double* dtemp, double* predef, double* dpred, char *cmname, int *ndi, int *nshr, int *ntens, int *nstatv, double* props, int *nprops, double* coords, double* drot, double* pnewdt, double* celent, double* dfgrd0, double* dfgrd1, int *noel, int *npt, int *layer, int *kspt, int *kstep, int *kinc, short cmname_len)
 {
 ''')
-
-for umat in umats:
-    usub_cpp_file.write('''\
+    for umat in umats:
+        usub_cpp_file.write('''\
     if (strncmp(cmname, "'''+umat+'''", '''+str(len(umat))+''') == 0)
     {
         UMatData<'''+umat.lower()+'''::ndim, '''+umat.lower()+'''::nvec, '''+umat.lower()+'''::npro, '''+umat.lower()+'''::nsta> umat_data(stress, statev, ddsdde, sse, spd, scd, rpl, ddsddt, drplde, drpldt, stran, dstran, time, dtime, temp, dtemp, predef, dpred, cmname,  ndi, nshr, ntens, nstatv, props, nprops, coords, drot, pnewdt, celent, dfgrd0, dfgrd1, noel, npt, layer, kspt, kstep, kinc, cmname_len);
@@ -105,10 +70,10 @@ for umat in umats:
         '''+umat.lower()+'''::umat(umat_data);
     }
 ''')
-
-usub_cpp_file.write('''\
-
+    usub_cpp_file.write('''\
 } // void umat_
 
+''')
+    usub_cpp_file.write('''\
 #endif // # ifndef usub_cpp
 ''')
