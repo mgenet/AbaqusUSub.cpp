@@ -1,0 +1,18 @@
+*.kdev4*
+*.com
+*.dat
+*.log
+*.msg
+*.odb
+*.prt
+*.rpy
+*.sim
+*.sta
+_*
+usub.cpp
+usub.o*
+ARCHIVES
+UEXTERNALDB*
+UTILS/ALGORITHMS
+UTILS/CARDIAC
+UTILS/FINITE TRANSFORMATION
