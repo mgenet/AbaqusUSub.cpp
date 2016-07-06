@@ -10,7 +10,7 @@
 *.sta
 _*
 usub.cpp
-usub.o*
+.o
 ARCHIVES
 UEXTERNALDB*
 UTILS/ALGORITHMS
