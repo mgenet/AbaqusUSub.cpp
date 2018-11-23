@@ -6,8 +6,8 @@ For convenience, the FORTRAN vectors and matrices are reinterpreted into C++ vec
 ### Installation
 
 ```
-> git clone https://github.com/mgenet/LMTpp.git
-> git clone https://github.com/mgenet/AbaqusUsub.cpp.git
+> git clone https://gitlab.inria.fr/mgenet/LMTpp.git
+> git clone https://gitlab.inria.fr/mgenet/AbaqusUsub.cpp.git
 ```
 
 ### Usage
